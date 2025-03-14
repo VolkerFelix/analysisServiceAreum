@@ -26,6 +26,23 @@ def generate_insights(metrics: ActivityMetrics, patterns: ActivityPatterns) -> L
                 priority="high"
             )
         )
+    elif metrics.avg_intensity > 0.3:
+        insights.append(
+            Insight(
+                insight_type="activity_level",
+                message="You had a good level of activity during this session.",
+                priority="medium"
+            )
+        )
+    else:
+        # Add a default insight for any activity level not covered above
+        insights.append(
+            Insight(
+                insight_type="activity_level",
+                message="I've analyzed your movement patterns. Consider adding more varied movements to your routine.",
+                priority="low"
+            )
+        )
     
     # Inactivity insights
     if patterns.inactivity_periods:
@@ -85,29 +102,27 @@ def generate_recommendations(metrics: ActivityMetrics, patterns: ActivityPattern
                 priority="low"
             )
         )
+    else:
+        # Add a default recommendation if no activity level triggers
+        recommendations.append(
+            Recommendation(
+                recommendation_type="activity_level",
+                title="Optimize Your Movement Patterns",
+                message="Consider adding variety to your movement patterns for better overall health.",
+                priority="medium"
+            )
+        )
     
     # Inactivity recommendations
     if patterns.inactivity_periods:
-        avg_duration = sum(p.duration for p in patterns.inactivity_periods) / len(patterns.inactivity_periods)
-        
-        if avg_duration > 300.0:  # > 5 minutes
-            recommendations.append(
-                Recommendation(
-                    recommendation_type="inactivity",
-                    title="Break Up Long Sitting Periods",
-                    message="I noticed extended periods of inactivity. Try setting a timer to remind you to move every 30 minutes.",
-                    priority="high"
-                )
+        recommendations.append(
+            Recommendation(
+                recommendation_type="inactivity",
+                title="Break Up Sitting Periods",
+                message="I noticed periods of inactivity. Try setting a timer to remind you to move every 30 minutes.",
+                priority="high"
             )
-        elif len(patterns.inactivity_periods) > 3:
-            recommendations.append(
-                Recommendation(
-                    recommendation_type="inactivity",
-                    title="Add Movement Breaks",
-                    message="Consider adding short movement breaks between your inactive periods to maintain better energy levels.",
-                    priority="medium"
-                )
-            )
+        )
     
     # Consistency recommendations
     if metrics.movement_consistency < 0.3 and metrics.total_duration > 5.0:

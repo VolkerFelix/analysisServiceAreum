@@ -1,3 +1,4 @@
+import json
 import pytest
 from fastapi.testclient import TestClient
 
@@ -24,9 +25,12 @@ def test_analyze_endpoint(sample_acceleration_data):
         include_recommendations=True,
         user_id="test-user-1"
     )
+    # First convert to JSON string, then parse back to dictionary
+    json_str = request.json()
+    json_dict = json.loads(json_str)
     
     # Call the endpoint
-    response = client.post("/analyze", json=request.dict())
+    response = client.post("/analyze", json=json_dict)
     
     # Check response
     assert response.status_code == 200

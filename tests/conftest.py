@@ -1,6 +1,7 @@
 import pytest
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import List
+import numpy as np
 
 from app.models.acceleration import AccelerationData, AccelerationSample
 
@@ -9,7 +10,7 @@ from app.models.acceleration import AccelerationData, AccelerationSample
 def sample_acceleration_data() -> AccelerationData:
     """Create sample acceleration data for testing."""
     # Create 100 samples at 10Hz (10 seconds of data)
-    base_time = datetime.utcnow()
+    base_time = datetime.now(timezone.utc)
     samples = []
     
     for i in range(100):
@@ -42,14 +43,14 @@ def sample_acceleration_data() -> AccelerationData:
 @pytest.fixture
 def sample_active_acceleration_data() -> AccelerationData:
     """Create sample acceleration data with high activity for testing."""
-    base_time = datetime.utcnow()
+    base_time = datetime.now(timezone.utc)
     samples = []
     
     for i in range(100):
-        # Add significant movement
-        x = 0.5 * np.sin(i * 0.1)  # Oscillating x movement
-        y = 0.4 * np.cos(i * 0.1)  # Oscillating y movement
-        z = 0.8 + 0.3 * np.sin(i * 0.05)  # Varying z with gravity
+        # Add more significant movement to ensure high intensity
+        x = 2.0 * np.sin(i * 0.1)  # Larger x movement
+        y = 1.5 * np.cos(i * 0.1)  # Larger y movement
+        z = 1.0 + 0.8 * np.sin(i * 0.05)  # Larger z variations
         
         sample_time = base_time + timedelta(milliseconds=i*100)
         
@@ -75,7 +76,7 @@ def sample_active_acceleration_data() -> AccelerationData:
 @pytest.fixture
 def sample_inactive_acceleration_data() -> AccelerationData:
     """Create sample acceleration data with long inactive periods for testing."""
-    base_time = datetime.utcnow()
+    base_time = datetime.now(timezone.utc)
     samples = []
     
     for i in range(100):
