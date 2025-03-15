@@ -97,7 +97,7 @@ jobs:
         context: .
         push: true
         tags: |
-          ghcr.io/${{ github.repository }}/areum-analysis-service:latest
-          ghcr.io/${{ github.repository }}/areum-analysis-service:${{ github.sha }}
+          ghcr.io/${{ github.repository | lowercase }}/areum-analysis-service:latest
+          ghcr.io/${{ github.repository | lowercase }}/areum-analysis-service:${{ github.sha }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
