@@ -7,28 +7,25 @@ from app.services.insights import generate_insights, generate_recommendations
 
 class AnalysisService:
     """Service for analyzing accelerometer data."""
-    
+
     def analyze(self, request: AnalysisRequest) -> AnalysisResponse:
         """Analyze accelerometer data and generate insights and recommendations."""
-        
+
         # Calculate metrics
         metrics = calculate_activity_metrics(request.acceleration_data)
-        
+
         # Detect patterns
         patterns = detect_activity_patterns(request.acceleration_data)
-        
+
         # Initialize response
-        response = AnalysisResponse(
-            status="success",
-            metrics=metrics
-        )
-        
+        response = AnalysisResponse(status="success", metrics=metrics)
+
         # Generate insights if requested
         if request.include_insights:
             response.insights = generate_insights(metrics, patterns)
-        
+
         # Generate recommendations if requested
         if request.include_recommendations:
             response.recommendations = generate_recommendations(metrics, patterns)
-        
+
         return response

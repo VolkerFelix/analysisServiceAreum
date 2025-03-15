@@ -23,18 +23,18 @@ def test_analyze_endpoint(sample_acceleration_data):
         acceleration_data=sample_acceleration_data,
         include_insights=True,
         include_recommendations=True,
-        user_id="test-user-1"
+        user_id="test-user-1",
     )
     # First convert to JSON string, then parse back to dictionary
     json_str = request.json()
     json_dict = json.loads(json_str)
-    
+
     # Call the endpoint
     response = client.post("/analyze", json=json_dict)
-    
+
     # Check response
     assert response.status_code == 200
-    
+
     data = response.json()
     assert data["status"] == "success"
     assert "metrics" in data
@@ -49,10 +49,10 @@ def test_analyze_endpoint_invalid_data():
         "acceleration_data": {
             # Missing required fields
         },
-        "user_id": "test-user-1"
+        "user_id": "test-user-1",
     }
-    
+
     response = client.post("/analyze", json=invalid_request)
-    
+
     # Should return a validation error
     assert response.status_code == 422  # Unprocessable Entity

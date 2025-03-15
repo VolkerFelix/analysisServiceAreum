@@ -7,6 +7,7 @@ from pydantic import BaseModel
 
 class AccelerationSample(BaseModel):
     """Model for a single accelerometer data sample."""
+
     timestamp: datetime
     x: float
     y: float
@@ -15,6 +16,7 @@ class AccelerationSample(BaseModel):
 
 class AccelerationData(BaseModel):
     """Model for a collection of accelerometer data samples."""
+
     data_type: str
     device_info: Dict[str, Any]
     sampling_rate_hz: int
@@ -26,6 +28,7 @@ class AccelerationData(BaseModel):
 
 class ActivityMetrics(BaseModel):
     """Model for activity metrics calculated from accelerometer data."""
+
     avg_intensity: float
     peak_intensity: float
     movement_consistency: float
@@ -35,6 +38,7 @@ class ActivityMetrics(BaseModel):
 
 class InactivityPeriod(BaseModel):
     """Model for a period of inactivity detected in accelerometer data."""
+
     start_time: datetime
     end_time: datetime
     duration: float  # in seconds
@@ -42,5 +46,6 @@ class InactivityPeriod(BaseModel):
 
 class ActivityPatterns(BaseModel):
     """Model for activity patterns detected in accelerometer data."""
+
     inactivity_periods: List[InactivityPeriod]
     activity_patterns: List[str] = []
