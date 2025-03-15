@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
+
 from app.models.acceleration import AccelerationData
 from app.models.analysis import AnalysisRequest, AnalysisResponse
 from app.services.analysis import AnalysisService

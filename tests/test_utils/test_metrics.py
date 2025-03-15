@@ -1,6 +1,7 @@
-import pytest
-import numpy as np
 from datetime import datetime, timedelta
+
+import numpy as np
+import pytest
 
 from app.models.acceleration import AccelerationData, AccelerationSample
 from app.utils.metrics import calculate_activity_metrics

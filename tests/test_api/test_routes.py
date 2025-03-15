@@ -1,10 +1,10 @@
 import json
+
 import pytest
 from fastapi.testclient import TestClient
 
 from app.main import app
 from app.models.analysis import AnalysisRequest
-
 
 client = TestClient(app)
 

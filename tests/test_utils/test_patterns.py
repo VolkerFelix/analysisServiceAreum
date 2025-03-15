@@ -1,6 +1,7 @@
-import pytest
 from datetime import datetime, timedelta
+
 import numpy as np
+import pytest
 
 from app.models.acceleration import AccelerationData, AccelerationSample
 from app.utils.patterns import detect_activity_patterns

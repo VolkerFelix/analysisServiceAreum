@@ -1,8 +1,8 @@
-from app.models.analysis import AnalysisRequest, AnalysisResponse
 from app.models.acceleration import ActivityMetrics
+from app.models.analysis import AnalysisRequest, AnalysisResponse
+from app.services.insights import generate_insights, generate_recommendations
 from app.utils.metrics import calculate_activity_metrics
 from app.utils.patterns import detect_activity_patterns
-from app.services.insights import generate_insights, generate_recommendations
 
 
 class AnalysisService:
